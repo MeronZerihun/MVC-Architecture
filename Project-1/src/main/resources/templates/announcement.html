@@ -1,0 +1,123 @@
+<!doctype html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link th:href="@{https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css}" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <title>AAIT ITSC NoticeBoard - Post Announcements</title>
+    <style>
+      .bg-company-blue{
+        background-color:rgb(54, 124, 188);
+        border-top: 3px solid white;
+        border-bottom: 3px solid white;
+      }
+
+      .navbar-default .navbar-nav .nav-item .nav-link:hover,
+      .navbar-default .navbar-nav .nav-item .nav-link:focus{
+        border-bottom: 5px solid rgb(118, 183, 247);
+        color : white;
+      }
+      #postBtn{
+        border-color: rgb(54, 124, 188);
+        color:rgb(54, 124, 188);
+        margin-right: 50px;
+      }
+      #postBtn:hover{
+        color:white;
+        background-color: rgb(54, 124, 188);
+      }
+      
+      .buttons{
+        float:right;
+        padding-left:28px;
+        padding-right:28px;
+      }
+      #link{
+      	float:right;
+      	}
+
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-company-blue navbar-default fixed-top" style="padding-bottom:0%;">
+    <a class="navbar-brand" href="#">AAIT ITSC Community</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" th:href="@{/announcement}">Announcements<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Register Teacher</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Academic Calender</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Scholarships</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Teacher's List</a>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/logout}">Log Out</a>
+        </li>
+      </ul>
+
+    </div>
+  </nav>
+
+<br><br>
+  <nav th:if="${success!='empty'}"  class="navbar navbar-light bg-light" >
+		<a class="navbar-brand" href="#">
+			<h1 th:text="${success}" style="color: green; margin-top:5%;"></h1>
+		</a>
+ </nav>
+ <br>
+ 
+  <!-- Form -->
+  <div class="container">
+      <img th:src="@{/images/wallnew2.png}" alt="AAIT" class="mx-auto d-block img-fluid">
+      <form method="POST" th:object="${announcement}" th:action="@{/announcement}">
+	      <div class="form-group row">
+	        <label for="eventHeader"> Header </label>
+	        <input type="text" class="form-control" placeholder="Input the header title for the announcement" th:value="${announcement?.header}" th:name="header" th:id="header" th:errorclass="fieldError">
+	        <span class="text-danger" 
+     			th:if="${#fields.hasErrors('header')}" 
+     			th:errors="*{header}">Name Error</span>
+     			
+	      </div>
+	      <div class="form-group row">
+	        <label for="eventDetail"> Description </label>
+	        <textarea class="form-control" placeholder="Input the details for the announcement" style="height:160px;" th:text="${announcement?.detail}" th:name="detail" th:id="detail" th:errorclass="fieldError"></textarea>
+	        <span class="text-danger" 
+     			th:if="${#fields.hasErrors('detail')}" 
+     			th:errors="*{detail}">Name Error</span>
+	      </div>
+	      <div class="buttons">
+	        <button id="postBtn" class="btn btn-outline-info" name="post">Post</button>
+	        <a id="cancelBtn" class="btn btn-outline-danger" th:href="@{/announcement}">Clear</a>
+	        <br><br><br><br>
+	    </div>
+	   </form>
+  </div>
+  
+  <footer class="font-small bg-company-blue fixed-bottom">
+    <div class="footer-copyright text-center py-2" style="color:white">
+      &copy; 2018 copyright:
+      <a href="#" style="color:white"> AAIT ITSC </a>
+    </div>
+  </footer>
+  </body>
+  <script th:src="@{js/slim.min.js}"></script>
+  <script th:src="@{js/bootstrap.min.js}"></script>
+  
+
+</html>
